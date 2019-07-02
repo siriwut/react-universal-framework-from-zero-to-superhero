@@ -5,6 +5,10 @@
   "repository": "git@github.com:siriwut/react-ssr-app-without-framework.git",
   "author": "Tape <siriwut.pw@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && webpack --config webpack.server.js",
+    "start": "node ./build/server.js"
+  },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.2.1",
