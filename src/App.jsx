@@ -1,6 +1,6 @@
-import React from "react";
-import Home from "./Home";
+import React from 'react'
+import Home from './Home'
 
 export default function App() {
-  return <Home name="Alligator" />;
+  return <Home name="Alligator" />
 }

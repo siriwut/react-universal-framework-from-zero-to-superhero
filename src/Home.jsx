@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export default function Home(props) {
-  return <h1>Hello {props.name}!</h1>;
+  return <h1>Home Shit!</h1>
 }
