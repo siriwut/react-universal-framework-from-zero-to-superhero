@@ -6,7 +6,7 @@
   "author": "Tape <siriwut.pw@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && webpack --config webpack.server.js",
+    "build": "rm -rf build && webpack --config webpack.server.js && webpack --config webpack.client.js",
     "start": "node ./build/server.js"
   },
   "dependencies": {
