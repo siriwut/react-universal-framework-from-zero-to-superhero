@@ -6,6 +6,8 @@
   "author": "Tape <siriwut.pw@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
     "express": "^4.17.1",
     "handlebars": "^4.1.2",
     "prop-types": "^15.7.2",
