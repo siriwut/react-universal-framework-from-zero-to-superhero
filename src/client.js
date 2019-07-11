@@ -10,22 +10,20 @@ import App from './App'
 import theme from './theme'
 
 function Main() {
-  // useEffect(() => {
-  //   const jssStyles = document.querySelector(
-  //     '#jss-server-side',
-  //   )
-  //   if (jssStyles) {
-  //     jssStyles.parentNode.removeChild(jssStyles)
-  //   }
-  // }, [])
+  useEffect(() => {
+    const jssStyles = document.querySelector(
+      '#jss-server-side',
+    )
+    if (jssStyles) {
+      jssStyles.parentNode.removeChild(jssStyles)
+    }
+  }, [])
 
   return (
-    <StylesProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </StylesProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
   )
 }
 

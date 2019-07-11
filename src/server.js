@@ -8,7 +8,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import {
   ServerStyleSheets,
   ThemeProvider,
-  StylesProvider,
 } from '@material-ui/styles'
 
 import theme from './theme'
@@ -22,12 +21,10 @@ function handleRenderHtml(req, res) {
   const materialSheets = new ServerStyleSheets()
   const html = renderToString(
     materialSheets.collect(
-      <StylesProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </StylesProvider>,
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>,
     ),
   )
   const materialCss = materialSheets.toString()
