@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf build && webpack --config webpack.server.js && webpack --config webpack.client.js",
-    "start": "node ./build/server.js"
+    "start": "node ./build/server.js",
+    "build:prod": "rm -rf build && cross-env NODE_ENV=production webpack --config webpack.server.js && webpack --config webpack.client.js",
+    "start:prod": "cross-env NODE_ENV=production yarn start"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
