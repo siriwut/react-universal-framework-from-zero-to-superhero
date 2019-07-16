@@ -1,7 +1,7 @@
 import React from 'react'
+import { renderToString } from 'react-dom/server'
 import express from 'express'
 import path from 'path'
-import { renderToString } from 'react-dom/server'
 import { compile } from 'handlebars'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -10,21 +10,29 @@ import {
   ThemeProvider,
 } from '@material-ui/styles'
 
+import { Provider } from 'react-redux'
+
 import theme from './theme'
+import template from './template.handlebars'
 
 import App from './App'
-import template from './template.handlebars'
+
+import configureStore from './configureStore'
+import reducer from './reducer'
 
 const app = express()
 
 function handleRenderHtml(req, res) {
+  const store = configureStore(reducer)
+
   const materialSheets = new ServerStyleSheets()
   const html = renderToString(
     materialSheets.collect(
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>,
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </Provider>,
     ),
   )
   const materialCss = materialSheets.toString()

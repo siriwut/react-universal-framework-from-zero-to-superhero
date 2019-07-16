@@ -6,25 +6,29 @@
   "author": "Tape <siriwut.pw@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf build && webpack --config webpack.server.js && webpack --config webpack.client.js",
+    "build": "rm -rf build && cross-env  webpack --config webpack.server.js && cross-env  webpack --config webpack.client.js",
     "start": "node ./build/server.js",
-    "build:prod": "rm -rf build && cross-env NODE_ENV=production webpack --config webpack.server.js && webpack --config webpack.client.js",
+    "build:prod": "rm -rf build && cross-env NODE_ENV=production webpack --config webpack.server.js && cross-env NODE_ENV=production webpack --config webpack.client.js",
     "start:prod": "cross-env NODE_ENV=production yarn start"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.2.1",
+    "axios": "^0.19.0",
     "express": "^4.17.1",
     "handlebars": "^4.1.2",
+    "jss": "^9.8.7",
     "mini-css-extract-plugin": "^0.7.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.12.0",
+    "react-jss": "^8.6.1",
+    "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1",
-    "redux-saga": "^1.0.4",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.0.5",
     "reselect": "^4.0.0"
   },
   "devDependencies": {

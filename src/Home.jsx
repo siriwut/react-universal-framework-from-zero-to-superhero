@@ -11,7 +11,11 @@ import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
+
 import { makeStyles } from '@material-ui/core/styles'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 function MadeWithLove() {
   return (
@@ -58,8 +62,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SignInSide() {
+const mapStateToProps = (state) => ({
+  ...state,
+})
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({}, dispatch)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home)
+
+export function Home(props) {
   const classes = useStyles()
+
+  console.log(props)
+
   return (
     <Grid container component="main">
       <CssBaseline />

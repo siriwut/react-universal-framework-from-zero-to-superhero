@@ -5,9 +5,16 @@ import {
   StylesProvider,
 } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import App from './App'
 
+import { Provider } from 'react-redux'
+
+import App from './App'
 import theme from './theme'
+
+import configureStore from './configureStore'
+import reducer from './reducer'
+
+const store = configureStore(reducer)
 
 function Main() {
   useEffect(() => {
@@ -19,12 +26,14 @@ function Main() {
     }
   }, [])
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  )
+  return <App />
 }
 
-hydrate(<Main />, document.getElementById('app'))
+hydrate(
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <Main />
+    </ThemeProvider>
+  </Provider>,
+  document.getElementById('app'),
+)
