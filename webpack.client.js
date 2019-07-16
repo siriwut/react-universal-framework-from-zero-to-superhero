@@ -10,6 +10,7 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js',
   },
+  target: 'web',
   module: {
     rules: [
       {
@@ -28,6 +29,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+
+    alias: {
+      '@material-ui/core': '@material-ui/core/es',
+    },
   },
   plugins: [],
 }
