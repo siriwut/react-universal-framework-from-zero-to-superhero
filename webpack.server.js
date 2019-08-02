@@ -4,7 +4,10 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    server: path.join(__dirname, 'src', 'index.js'),
+    server: [
+      '@babel/polyfill',
+      path.join(__dirname, 'src', 'index.js'),
+    ],
   },
   output: {
     path: path.join(__dirname, 'build'),

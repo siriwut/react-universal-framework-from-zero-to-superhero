@@ -13,8 +13,11 @@ import theme from './theme'
 
 import configureStore from './configureStore'
 import reducer from './reducer'
+import rootSaga from './saga'
 
-const store = configureStore(reducer)
+const { store, runSaga } = configureStore(reducer)
+
+runSaga(rootSaga)
 
 function Main() {
   useEffect(() => {

@@ -19,27 +19,48 @@ import App from './App'
 
 import configureStore from './configureStore'
 import reducer from './reducer'
+import rootSaga from './saga'
 
 const app = express()
 
 function handleRenderHtml(req, res) {
-  const store = configureStore(reducer)
+  const { store, runSaga, closeSaga } = configureStore(
+    reducer,
+  )
 
   const materialSheets = new ServerStyleSheets()
-  const html = renderToString(
-    materialSheets.collect(
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </Provider>,
-    ),
-  )
-  const materialCss = materialSheets.toString()
+  const renderHtml = () => {
+    const html = renderToString(
+      materialSheets.collect(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </Provider>,
+      ),
+    )
 
-  res.send(
-    template({ body: html, materialCss: materialCss }),
-  )
+    const materialCss = materialSheets.toString()
+
+    return {
+      html,
+      css: materialCss,
+    }
+  }
+
+  runSaga(rootSaga)
+    .toPromise()
+    .then(() => {
+      const { html, css } = renderHtml()
+
+      res.status(200).send(
+        template({
+          body: html,
+          materialCss: css,
+        }),
+      )
+    })
+    .catch((e) => res.status(500).send(e.message))
 }
 
 app.use(

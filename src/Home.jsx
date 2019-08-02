@@ -77,8 +77,6 @@ export default connect(
 export function Home(props) {
   const classes = useStyles()
 
-  console.log(props)
-
   return (
     <Grid container component="main">
       <CssBaseline />
