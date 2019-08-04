@@ -1,15 +1,26 @@
+const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: 'development',
+  devtool: 'eval-source-map',
   entry: {
-    client: path.join(__dirname, 'src', 'client.js'),
+    client: [
+      '@babel/polyfill',
+      // 'webpack-hot-middleware/client?reload=true',
+      path.join(__dirname, 'src', 'client.js'),
+    ],
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'build', 'public'),
+    publicPath: '/',
   },
   output: {
     path: path.join(__dirname, 'build', 'public'),
     publicPath: '/',
     filename: '[name].js',
   },
+  context: __dirname,
   target: 'web',
   module: {
     rules: [
@@ -34,5 +45,5 @@ module.exports = {
       '@material-ui/core': '@material-ui/core/es',
     },
   },
-  plugins: [],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 }

@@ -1,18 +1,24 @@
+const webpack = require('webpack')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: 'development',
   entry: {
     server: [
       '@babel/polyfill',
+      // 'webpack-hot-middleware/server?reload=true',
       path.join(__dirname, 'src', 'index.js'),
     ],
+  },
+  devServer: {
+    // contentBase: './build',
   },
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js',
   },
+  context: __dirname,
   target: 'node',
   node: {
     // Need this when working with express, otherwise the build fails
@@ -44,5 +50,5 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 }

@@ -17,26 +17,28 @@ import rootSaga from './saga'
 
 const { store, runSaga } = configureStore(reducer)
 
-runSaga(rootSaga)
+// runSaga(rootSaga)
+//
+// function Main() {
+//   useEffect(() => {
+//     const jssStyles = document.querySelector(
+//       '#jss-server-side',
+//     )
+//     if (jssStyles) {
+//       jssStyles.parentNode.removeChild(jssStyles)
+//     }
+//   }, [])
+//
+//   return <App />
+// }
+//
+// hydrate(
+//   <Provider store={store}>
+//     <ThemeProvider theme={theme}>
+//       <Main />
+//     </ThemeProvider>
+//   </Provider>,
+//   document.getElementById('app'),
+// )
 
-function Main() {
-  useEffect(() => {
-    const jssStyles = document.querySelector(
-      '#jss-server-side',
-    )
-    if (jssStyles) {
-      jssStyles.parentNode.removeChild(jssStyles)
-    }
-  }, [])
-
-  return <App />
-}
-
-hydrate(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <Main />
-    </ThemeProvider>
-  </Provider>,
-  document.getElementById('app'),
-)
+console.log('[CLIENT] HELLO')
