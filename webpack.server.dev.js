@@ -1,19 +1,25 @@
 const webpack = require('webpack')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const StartServerPlugin = require('start-server-webpack-plugin')
+const {
+  CleanWebpackPlugin,
+} = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'development',
   entry: {
     server: [
-      'webpack/hot/poll?1000',
+      'webpack/hot/signal',
       '@babel/polyfill',
       // 'webpack-hot-middleware/server?reload=true',
       path.join(__dirname, 'src', 'index.js'),
     ],
   },
   devServer: {
-    // contentBase: './build',
+    contentBase: './build',
+    hot: true,
+    inline: true,
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -28,7 +34,10 @@ module.exports = {
   },
   externals: [
     nodeExternals({
-      whitelist: [/@material-ui\/core\/*./],
+      whitelist: [
+        /@material-ui\/core\/*./,
+        /node-externals/,
+      ],
     }),
   ], // Need this to avoid error when working with Express
   module: {
@@ -52,9 +61,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
     new StartServerPlugin({
       name: 'server.js',
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 }

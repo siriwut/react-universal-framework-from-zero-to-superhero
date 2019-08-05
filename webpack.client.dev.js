@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     client: [
       '@babel/polyfill',
-      // 'webpack-hot-middleware/client?reload=true',
+      'webpack-hot-middleware/client?reload=true',
       path.join(__dirname, 'src', 'client.js'),
     ],
   },

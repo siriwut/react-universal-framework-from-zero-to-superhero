@@ -24,9 +24,9 @@ import rootSaga from './saga'
 
 import config from '../webpack.client.dev'
 
-const app = express()
+const server = express()
 
-app.use(
+server.use(
   express.static(
     path.resolve(__dirname, '..', 'build', 'public'),
   ),
@@ -82,14 +82,6 @@ function handleRenderHtml(req, res) {
   })
 }
 
-app.get('/', handleRenderHtml)
+server.get('/', handleRenderHtml)
 
-const server = http.createServer(app)
-
-server.listen(process.env.PORT || 3000, (error) => {
-  if (error) {
-    console.log(error)
-  }
-
-  console.log('🚀 started')
-})
+export default server
