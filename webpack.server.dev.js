@@ -6,6 +6,7 @@ module.exports = {
   mode: 'development',
   entry: {
     server: [
+      'webpack/hot/poll?1000',
       '@babel/polyfill',
       // 'webpack-hot-middleware/server?reload=true',
       path.join(__dirname, 'src', 'index.js'),
@@ -50,5 +51,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new StartServerPlugin({
+      name: 'server.js',
+    }),
+  ],
 }

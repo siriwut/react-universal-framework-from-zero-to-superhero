@@ -11,23 +11,24 @@ import serverConfig from './webpack.server.dev'
 
 const devApp = express()
 
-const compiler = webpack([serverConfig, clientConfig])
+const [clientCompiler, serverCompiler] = webpack([
+  clientConfig,
+  serverConfig,
+])
 
 devApp.use(
-  webpackDevMiddleware(compiler, {
+  webpackDevMiddleware(clientCompiler, {
     noInfo: true,
     publicPath: clientConfig.output.publicPath,
   }),
 )
-devApp.use(webpackHotMiddleware(compiler))
-
-// devApp.use((req, res) => {
-//   const app = require('./src/server').default
-//
-//   app(req, res)
-// })
-
+devApp.use(webpackHotMiddleware(clientCompiler))
 devApp.use(express.static(path.resolve(__dirname, 'src')))
+
+clientCompiler.hooks.done.tap(
+  'BuildStatsPlugin',
+  (stats) => {},
+)
 
 const devServer = http.createServer(devApp)
 
