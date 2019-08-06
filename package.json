@@ -6,7 +6,7 @@
   "author": "Tape <siriwut.pw@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "rm -rf build && cross-env NODE_ENV=development node --require @babel/register --require @babel/polyfill  ./devServer.js",
+    "start": "rm -rf build && cross-env DEBUG=express:* NODE_ENV=development node --require @babel/register --require @babel/polyfill  ./devServer.js",
     "build:prod": "rm -rf build && cross-env --mode production webpack --config webpack.server.prod.js && cross-env --mode production webpack --config webpack.client.prod.js",
     "start:prod": "cross-env NODE_ENV=production node ./build/server.js"
   },

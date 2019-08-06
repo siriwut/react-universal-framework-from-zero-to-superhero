@@ -56,7 +56,7 @@ function handleRenderHtml(req, res) {
       css: materialCss,
     }
   }
-
+  console.log('hello')
   runSaga(rootSaga)
     .toPromise()
     .then(() => {

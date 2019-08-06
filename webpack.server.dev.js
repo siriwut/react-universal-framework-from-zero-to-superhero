@@ -17,12 +17,12 @@ module.exports = {
       path.join(__dirname, 'src', 'index.js'),
     ],
   },
-  devServer: {
-    contentBase: './build',
-    hot: true,
-    inline: true,
-    publicPath: '/build',
-  },
+  // devServer: {
+  //   contentBase: './build',
+  //   hot: true,
+  //   inline: true,
+  //   publicPath: '/build',
+  // },
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js',

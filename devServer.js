@@ -9,22 +9,34 @@ import path from 'path'
 import clientConfig from './webpack.client.dev'
 import serverConfig from './webpack.server.dev'
 
-const devApp = express()
+const app = express()
 
 const clientCompiler = webpack(clientConfig)
 const serverCompiler = webpack(serverConfig)
 
-devApp.use(
+app.use(
   webpackDevMiddleware(clientCompiler, {
-    contentBase: './build/public',
-    noInfo: true,
+    // proxy: {
+    //   '*': {
+    //     target: 'http://localhost:3000',
+    //   },
+    // },
+    // contentBase: './build/public',
+    noInfo: false,
     publicPath: clientConfig.output.publicPath,
+    // port: 8000,
+    // host: '0.0.0.0',
     hot: true,
     inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
   }),
 )
 
-devApp.use(webpackHotMiddleware(clientCompiler))
+app.use(
+  webpackHotMiddleware(clientCompiler, {
+    // path: 'localhost:8000/__webpack_hmr',
+  }),
+)
 
 clientCompiler.hooks.done.tap(
   'BuildStatsPlugin',
@@ -36,9 +48,9 @@ clientCompiler.hooks.done.tap(
   },
 )
 
-const devServer = http.createServer(devApp)
+const server = http.createServer(app)
 
-devServer.listen(process.env.PORT || 8000, (error) => {
+server.listen(process.env.PORT || 8000, (error) => {
   if (error) {
     console.log(error)
   }

@@ -9,21 +9,26 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: {
     client: [
+      'webpack-hot-middleware/client?reload=false&path=http://localhost:8000/__webpack_hmr',
       '@babel/polyfill',
-      'webpack-hot-middleware/client?reload=true',
       path.join(__dirname, 'src', 'client.js'),
     ],
   },
   // devServer: {
-  //   contentBase: path.join(__dirname, 'build', 'public'),
-  //   publicPath: '/',
+  //   contentBase: './build/public',
+  //   noInfo: false,
+  //   // publicPath: 'http://localhost:8000',
+  //   // port: 8000,
+  //   // host: '0.0.0.0',
+  //   hot: true,
+  //   inline: true,
+  //   headers: { 'Access-Control-Allow-Origin': '*' },
   // },
   output: {
     path: path.join(__dirname, 'build', 'public'),
-    publicPath: '/',
+    publicPath: 'http://localhost:8000/',
     filename: '[name].js',
   },
-  context: __dirname,
   target: 'web',
   module: {
     rules: [
