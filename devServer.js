@@ -16,28 +16,22 @@ const serverCompiler = webpack(serverConfig)
 
 devApp.use(
   webpackDevMiddleware(clientCompiler, {
+    contentBase: './build/public',
     noInfo: true,
-    // publicPath: clientConfig.output.publicPath,
+    publicPath: clientConfig.output.publicPath,
     hot: true,
     inline: true,
   }),
 )
 
 devApp.use(webpackHotMiddleware(clientCompiler))
-devApp.use(express.static(path.resolve(__dirname, 'src')))
 
 clientCompiler.hooks.done.tap(
   'BuildStatsPlugin',
   (stats) => {
-    console.log('helll')
     serverCompiler.watch(
-      {
-        quiet: true,
-        stats: 'none',
-      },
-      (stats) => {
-        console.log('--watch--')
-      },
+      serverConfig.devServer,
+      (stats) => {},
     )
   },
 )

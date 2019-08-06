@@ -57,29 +57,25 @@ function handleRenderHtml(req, res) {
     }
   }
 
-  console.log('[saga] start')
-  console.log('[saga] running...')
   runSaga(rootSaga)
     .toPromise()
     .then(() => {
-      console.log('[saga] done')
       const { html, css } = renderHtml()
 
       res.status(200).send(
         template({
           body: html,
           materialCss: css,
+          bundleSrc:
+            process.env.ENV === 'prod'
+              ? '/client.js'
+              : 'http://localhost:8000/client.js',
         }),
       )
     })
     .catch((e) => res.status(500).send(e.message))
 
   closeSaga()
-  console.log('[server] do another...')
-
-  res.status(200).json({
-    name: 'tape name',
-  })
 }
 
 server.get('/', handleRenderHtml)

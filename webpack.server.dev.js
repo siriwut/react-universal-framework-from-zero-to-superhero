@@ -8,9 +8,10 @@ const {
 
 module.exports = {
   mode: 'development',
+  devtool: 'eval-source-map',
   entry: {
     server: [
-      'webpack/hot/signal',
+      'webpack/hot/poll?1000',
       '@babel/polyfill',
       // 'webpack-hot-middleware/server?reload=true',
       path.join(__dirname, 'src', 'index.js'),
@@ -20,10 +21,12 @@ module.exports = {
     contentBase: './build',
     hot: true,
     inline: true,
+    publicPath: '/build',
   },
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js',
+    publicPath: '/build',
   },
   context: __dirname,
   target: 'node',
@@ -36,7 +39,7 @@ module.exports = {
     nodeExternals({
       whitelist: [
         /@material-ui\/core\/*./,
-        /node-externals/,
+        'webpack/hot/poll?1000',
       ],
     }),
   ], // Need this to avoid error when working with Express

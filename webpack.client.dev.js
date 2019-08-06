@@ -1,5 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
+const {
+  CleanWebpackPlugin,
+} = require('clean-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -11,10 +14,10 @@ module.exports = {
       path.join(__dirname, 'src', 'client.js'),
     ],
   },
-  devServer: {
-    contentBase: path.join(__dirname, 'build', 'public'),
-    publicPath: '/',
-  },
+  // devServer: {
+  //   contentBase: path.join(__dirname, 'build', 'public'),
+  //   publicPath: '/',
+  // },
   output: {
     path: path.join(__dirname, 'build', 'public'),
     publicPath: '/',
@@ -45,5 +48,8 @@ module.exports = {
       '@material-ui/core': '@material-ui/core/es',
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 }

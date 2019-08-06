@@ -75,8 +75,6 @@ export default connect(
 )(Home)
 
 export function Home(props) {
-  console.log('helllo')
-  console.log(process.env.NODE_ENV)
   const classes = useStyles()
 
   return (

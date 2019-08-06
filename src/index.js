@@ -1,26 +1,22 @@
 import express from 'express'
 import http from 'http'
-
-let app = require('./server').default
+import app from './server'
 
 if (module.hot) {
-  module.hot.accept('./server', function() {
+  module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...')
-    try {
-      app = require('./server').default
-    } catch (error) {
-      console.error(error)
-    }
   })
   console.info('✅  Server-side HMR Enabled!')
 }
 
-const server = http.createServer(app)
+const port = process.env.PORT || 3000
 
-server.listen(process.env.PORT || 3000, (error) => {
-  if (error) {
-    console.log(error)
-  }
-
-  console.log('🚀 started')
-})
+export default express()
+  .use((req, res) => app.handle(req, res))
+  .listen(port, (err) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    console.log(`> Started on port 3000`)
+  })
