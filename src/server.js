@@ -56,20 +56,21 @@ function handleRenderHtml(req, res) {
       css: materialCss,
     }
   }
-  console.log('hello')
+
   runSaga(rootSaga)
     .toPromise()
     .then(() => {
       const { html, css } = renderHtml()
-
+      console.log(store.getState())
       res.status(200).send(
         template({
           body: html,
           materialCss: css,
           bundleSrc:
-            process.env.ENV === 'prod'
+            process.env.NODE_ENV === 'production'
               ? '/client.js'
               : 'http://localhost:8000/client.js',
+          reduxStoreState: JSON.stringify(store.getState()),
         }),
       )
     })

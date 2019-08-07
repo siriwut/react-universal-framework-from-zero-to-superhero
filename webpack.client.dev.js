@@ -9,21 +9,19 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: {
     client: [
-      'webpack-hot-middleware/client?reload=false&path=http://localhost:8000/__webpack_hmr',
+      'webpack-hot-middleware/client?reload=true&path=http://localhost:8000/__webpack_hmr',
+      'react-hot-loader/patch',
       '@babel/polyfill',
       path.join(__dirname, 'src', 'client.js'),
     ],
   },
-  // devServer: {
-  //   contentBase: './build/public',
-  //   noInfo: false,
-  //   // publicPath: 'http://localhost:8000',
-  //   // port: 8000,
-  //   // host: '0.0.0.0',
-  //   hot: true,
-  //   inline: true,
-  //   headers: { 'Access-Control-Allow-Origin': '*' },
-  // },
+  devServer: {
+    noInfo: false,
+    publicPath: 'http://localhost:8000/',
+    hot: true,
+    inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  },
   output: {
     path: path.join(__dirname, 'build', 'public'),
     publicPath: 'http://localhost:8000/',
@@ -51,6 +49,7 @@ module.exports = {
 
     alias: {
       '@material-ui/core': '@material-ui/core/es',
+      'react-dom': '@hot-loader/react-dom',
     },
   },
   plugins: [

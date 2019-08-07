@@ -15,28 +15,12 @@ const clientCompiler = webpack(clientConfig)
 const serverCompiler = webpack(serverConfig)
 
 app.use(
-  webpackDevMiddleware(clientCompiler, {
-    // proxy: {
-    //   '*': {
-    //     target: 'http://localhost:3000',
-    //   },
-    // },
-    // contentBase: './build/public',
-    noInfo: false,
-    publicPath: clientConfig.output.publicPath,
-    // port: 8000,
-    // host: '0.0.0.0',
-    hot: true,
-    inline: true,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-  }),
+  webpackDevMiddleware(
+    clientCompiler,
+    clientConfig.devServer,
+  ),
 )
-
-app.use(
-  webpackHotMiddleware(clientCompiler, {
-    // path: 'localhost:8000/__webpack_hmr',
-  }),
-)
+app.use(webpackHotMiddleware(clientCompiler))
 
 clientCompiler.hooks.done.tap(
   'BuildStatsPlugin',
@@ -50,10 +34,13 @@ clientCompiler.hooks.done.tap(
 
 const server = http.createServer(app)
 
-server.listen(process.env.PORT || 8000, (error) => {
-  if (error) {
-    console.log(error)
-  }
+server.listen(
+  process.env.DEV_SERVER_PORT || 8000,
+  (error) => {
+    if (error) {
+      console.log(error)
+    }
 
-  console.log('🚀 started')
-})
+    console.log('🚀 started')
+  },
+)
