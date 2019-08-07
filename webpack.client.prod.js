@@ -1,5 +1,5 @@
 const path = require('path')
-console.log('heyyy')
+
 module.exports = {
   mode: 'production',
   entry: {

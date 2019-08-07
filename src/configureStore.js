@@ -9,11 +9,15 @@ export default function configureStore(
 ) {
   const sagaMiddleware = createSagaMiddleware()
   const middleware = [sagaMiddleware]
+  const enhancers =
+    process.env.NODE_ENV === 'development'
+      ? composeWithDevTools(applyMiddleware(...middleware))
+      : applyMiddleware(...middleware)
 
   const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools(applyMiddleware(...middleware)),
+    enhancers,
   )
 
   return {
