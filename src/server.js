@@ -61,7 +61,7 @@ function handleRenderHtml(req, res) {
     .toPromise()
     .then(() => {
       const { html, css } = renderHtml()
-      console.log(store.getState())
+
       res.status(200).send(
         template({
           body: html,

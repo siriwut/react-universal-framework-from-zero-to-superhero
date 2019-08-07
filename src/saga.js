@@ -10,7 +10,6 @@ export default function* saga() {
 }
 
 function* sub1() {
-  console.log('sub1')
   yield put({ type: 'SUB1', payload: { name: 'SUB1' } })
 }
 
