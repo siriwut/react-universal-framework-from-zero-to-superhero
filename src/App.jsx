@@ -1,9 +1,9 @@
 import { hot, setConfig } from 'react-hot-loader'
 import React, { useEffect } from 'react'
-import Home from './Home'
+import Routes from './routes'
 
-export function App(props) {
-  return <Home name="Alligator" />
+export function App() {
+  return <Routes />
 }
 
 export default hot(module)(App)

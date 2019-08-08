@@ -7,6 +7,7 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 import theme from './theme'
@@ -29,7 +30,11 @@ function Main() {
     }
   }, [])
 
-  return <App />
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  )
 }
 
 hydrate(
