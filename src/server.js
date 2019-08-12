@@ -1,15 +1,17 @@
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import express from 'express'
 import http from 'http'
 import path from 'path'
+import express from 'express'
 import favicon from 'serve-favicon'
 import { compile } from 'handlebars'
+import serialize from 'serialize-javascript'
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { createMemoryHistory } from 'history'
+import { StaticRouter, matchPath } from 'react-router-dom'
 import {
-  match,
-  createMemoryHistory,
-  StaticRouter,
-} from 'react-router-dom'
+  matchRoutes,
+  renderRoutes,
+} from 'react-router-config'
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {
@@ -51,72 +53,61 @@ server.use(
 //   ),
 // )
 
-function handleRenderHtml(req, res) {
+function handleRenderHtml(req, res, next) {
   const { store, runSaga, closeSaga } = configureStore(
     reducer,
   )
 
-  match(
-    { routes, location: req.url },
-    (error, redirectLocation, renderProps) => {
-      if (error) {
-        res.status(500).send(error.message)
-      } else if (redirectLocation) {
-        res.redirect(
-          302,
-          redirectLocation.pathname +
-            redirectLocation.search,
-        )
-      } else if (renderProps && renderProps.components) {
-        const materialSheets = new ServerStyleSheets()
-        const renderHtml = () => {
-          const html = renderToString(
-            materialSheets.collect(
-              <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                  <StaticRouter>
-                    <App />
-                  </StaticRouter>
-                </ThemeProvider>
-              </Provider>,
-            ),
-          )
+  // console.log(matchRoutes(routes(), req.url))
 
-          const materialCss = materialSheets.toString()
+  const materialSheets = new ServerStyleSheets()
+  const context = {}
+  const renderHtml = () => {
+    const html = renderToString(
+      materialSheets.collect(
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <StaticRouter
+              location={req.url}
+              context={context}
+              history={createMemoryHistory()}>
+              {renderRoutes(routes())}
+            </StaticRouter>
+          </ThemeProvider>
+        </Provider>,
+      ),
+    )
 
-          return {
-            html,
-            css: materialCss,
-          }
-        }
+    const materialCss = materialSheets.toString()
 
-        runSaga(rootSaga)
-          .toPromise()
-          .then(() => {
-            const { html, css } = renderHtml()
+    return {
+      html,
+      css: materialCss,
+    }
+  }
 
-            res.status(200).send(
-              template({
-                body: html,
-                materialCss: css,
-                bundleSrc:
-                  process.env.NODE_ENV === 'production'
-                    ? '/client.js'
-                    : 'http://localhost:8000/client.js',
-                reduxStoreState: JSON.stringify(
-                  store.getState(),
-                ),
-              }),
-            )
-          })
-          .catch((e) => res.status(500).send(e.message))
+  runSaga(rootSaga)
+    .toPromise()
+    .then(() => {
+      const { html, css } = renderHtml()
 
-        closeSaga()
-      }
-    },
-  )
+      res.status(200).send(
+        template({
+          body: html,
+          materialCss: css,
+          bundleSrc:
+            process.env.NODE_ENV === 'production'
+              ? '/client.js'
+              : 'http://localhost:8000/client.js',
+          initialState: serialize(store.getState()),
+        }),
+      )
+    })
+    .catch((e) => res.status(500).send(e.message))
+
+  closeSaga()
 }
 
-server.use(handleRenderHtml)
+server.get('/*', handleRenderHtml)
 
 export default server

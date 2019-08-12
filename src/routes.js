@@ -1,10 +1,32 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import Home from './Home'
+import App from './App'
+import Home from './views/Home'
+import About from './views/About'
 
-export default (
-  <Switch>
-    <Route exect path="/" component={Home} />
-  </Switch>
-)
+export default function routes() {
+  return [
+    {
+      component: App,
+      routes: [
+        {
+          path: '/',
+          exact: true,
+          component: Home,
+        },
+        {
+          path: '/about/:id',
+          component: About,
+        },
+        {
+          path: '/test/:id',
+          component: () => 'test',
+        },
+        {
+          component: () => 'Not Found',
+        },
+      ],
+    },
+  ]
+}

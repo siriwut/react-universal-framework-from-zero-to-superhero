@@ -7,16 +7,26 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { Provider } from 'react-redux'
+
 import { BrowserRouter } from 'react-router-dom'
+import {
+  matchRoutes,
+  renderRoutes,
+} from 'react-router-config'
 
 import App from './App'
+
+import routes from './routes'
 import theme from './theme'
 
 import configureStore from './configureStore'
 import reducer from './reducer'
 import rootSaga from './saga'
 
-const { store, runSaga } = configureStore(reducer)
+const { store, runSaga } = configureStore(
+  reducer,
+  window.__INITIAL_STATE__ || {},
+)
 
 runSaga(rootSaga)
 
@@ -31,9 +41,7 @@ function Main() {
   }, [])
 
   return (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <BrowserRouter>{renderRoutes(routes())}</BrowserRouter>
   )
 }
 

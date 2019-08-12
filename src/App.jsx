@@ -1,9 +1,10 @@
 import { hot, setConfig } from 'react-hot-loader'
 import React, { useEffect } from 'react'
-import Routes from './routes'
+import { renderRoutes } from 'react-router-config'
+import routes from './routes'
 
-export function App() {
-  return <Routes />
+export function App({ route, ...rest }) {
+  return renderRoutes(route.routes)
 }
 
 export default hot(module)(App)

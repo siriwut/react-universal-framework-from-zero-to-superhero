@@ -9,9 +9,9 @@
   </head>
   <body>
     <div id="app">{{{body}}}</div>
-    <script src="{{bundleSrc}}"></script>
     <script>
-      window.__REDUX_STORE_STATE__ = {{{reduxStoreState}}}
+      window.__INITIAL_STATE__ = {{{initialState}}}
     </script>
+    <script src="{{bundleSrc}}"></script>
   </body>
 </html>
