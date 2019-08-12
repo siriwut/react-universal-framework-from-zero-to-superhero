@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { LOAD_HOME } from '../constants'
 
 function MadeWithLove() {
   return (
@@ -62,19 +63,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const mapStateToProps = (state) => ({
-  ...state,
-})
+// const mapStateToProps = (state) => ({
+//   ...state,
+// })
+//
+// const mapDispatchToProps = (dispatch) =>
+//   bindActionCreators({}, dispatch)
+//
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(Home)
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({}, dispatch)
+Home.getInitialProps = ({ store }) => {
+  console.log('load')
+  store.dispatch({ type: LOAD_HOME })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home)
+  return {}
+}
 
-export function Home(props) {
+export default function Home(props) {
   const classes = useStyles()
 
   return (

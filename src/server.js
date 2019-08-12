@@ -58,7 +58,7 @@ function handleRenderHtml(req, res, next) {
     reducer,
   )
 
-  // console.log(matchRoutes(routes(), req.url))
+  const matchedRoutes = matchRoutes(routes(), req.url)
 
   const materialSheets = new ServerStyleSheets()
   const context = {}
@@ -104,6 +104,24 @@ function handleRenderHtml(req, res, next) {
       )
     })
     .catch((e) => res.status(500).send(e.message))
+
+  const promises = matchedRoutes
+    .map((route) => {
+      const { component } = route.route
+
+      if (typeof component.getInitialProps !== 'function') {
+        return null
+      }
+
+      const promise = component.getInitialProps({ store })
+
+      if (!(promise instanceof Promise)) {
+        return null
+      }
+
+      return promise
+    })
+    .filter((route) => !!route)
 
   closeSaga()
 }
