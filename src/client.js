@@ -41,7 +41,9 @@ function Main() {
   }, [])
 
   return (
-    <BrowserRouter>{renderRoutes(routes())}</BrowserRouter>
+    <BrowserRouter>
+      {renderRoutes(routes({ store }))}
+    </BrowserRouter>
   )
 }
 

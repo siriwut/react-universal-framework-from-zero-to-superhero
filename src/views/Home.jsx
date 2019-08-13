@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
+import MaterialLink from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -16,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { LOAD_HOME } from '../constants'
 
 function MadeWithLove() {
   return (
@@ -25,9 +26,11 @@ function MadeWithLove() {
       color="textSecondary"
       align="center">
       {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <MaterialLink
+        color="inherit"
+        href="https://material-ui.com/">
         Material-UI
-      </Link>
+      </MaterialLink>
       {' team.'}
     </Typography>
   )
@@ -75,13 +78,6 @@ const useStyles = makeStyles((theme) => ({
 //   mapDispatchToProps,
 // )(Home)
 
-Home.getInitialProps = ({ store }) => {
-  console.log('load')
-  store.dispatch({ type: LOAD_HOME })
-
-  return {}
-}
-
 export default function Home(props) {
   const classes = useStyles()
 
@@ -110,6 +106,10 @@ export default function Home(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
+          <div>
+            <br />
+            <Link to="/about">About</Link>
+          </div>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -152,14 +152,14 @@ export default function Home(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <MaterialLink href="#" variant="body2">
                   Forgot password?
-                </Link>
+                </MaterialLink>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <MaterialLink href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </MaterialLink>
               </Grid>
             </Grid>
             <Box mt={5}>

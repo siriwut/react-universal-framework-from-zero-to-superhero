@@ -5,7 +5,9 @@ import App from './App'
 import Home from './views/Home'
 import About from './views/About'
 
-export default function routes() {
+import { LOAD_HOME } from './constants'
+
+export default function routes({ store } = {}) {
   return [
     {
       component: App,
@@ -14,9 +16,12 @@ export default function routes() {
           path: '/',
           exact: true,
           component: Home,
+          prefetch: () => {
+            store.dispatch({ type: LOAD_HOME })
+          },
         },
         {
-          path: '/about/:id',
+          path: '/about',
           component: About,
         },
         {

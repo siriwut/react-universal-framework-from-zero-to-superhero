@@ -58,7 +58,10 @@ function handleRenderHtml(req, res, next) {
     reducer,
   )
 
-  const matchedRoutes = matchRoutes(routes(), req.url)
+  const matchedRoutes = matchRoutes(
+    routes({ store }),
+    req.url,
+  )
 
   const materialSheets = new ServerStyleSheets()
   const context = {}
@@ -106,14 +109,12 @@ function handleRenderHtml(req, res, next) {
     .catch((e) => res.status(500).send(e.message))
 
   const promises = matchedRoutes
-    .map((route) => {
-      const { component } = route.route
-
-      if (typeof component.getInitialProps !== 'function') {
+    .map(({ route, match }) => {
+      if (typeof route.prefetch !== 'function') {
         return null
       }
 
-      const promise = component.getInitialProps({ store })
+      const promise = route.prefetch({ match })
 
       if (!(promise instanceof Promise)) {
         return null
