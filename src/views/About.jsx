@@ -1,10 +1,11 @@
 import React from 'react'
-
-About.getInitialProps = async () => {
-  console.log('---getInitialProps---')
-}
+import { Link } from 'react-router-dom'
 
 export default function About(props) {
-  console.log(props)
-  return 'About'
+  return (
+    <div>
+      <Link to="/">Home</Link> |{' '}
+      <Link to="/test/2">Test</Link>
+    </div>
+  )
 }

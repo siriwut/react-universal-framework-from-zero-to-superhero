@@ -4,9 +4,9 @@ import {
   takeEvery,
   all,
   fork,
+  call,
 } from 'redux-saga/effects'
-
-import { LOAD_HOME } from './constants'
+import * as fakeApi from './fakeApi'
 
 export default function* saga() {
   // yield all([sub1(), sub2(), sub3()])
@@ -14,8 +14,14 @@ export default function* saga() {
 }
 
 function* sub1() {
-  yield takeEvery(LOAD_HOME, function*() {
-    console.log('load home')
+  yield takeEvery('LOAD_HOME', function*() {
+    console.log('load_home_data')
+    const data = yield call(fakeApi.get, 5000)
+
+    yield put({
+      type: 'LOAD_HOME_SUCCESS',
+      payload: { home: 'Home', data: data },
+    })
   })
 }
 

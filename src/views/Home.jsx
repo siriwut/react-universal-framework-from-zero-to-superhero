@@ -108,7 +108,8 @@ export default function Home(props) {
           </Typography>
           <div>
             <br />
-            <Link to="/about">About</Link>
+            <Link to="/about">About</Link> {'|'}
+            <Link to="/test/1">Test</Link>
           </div>
           <form className={classes.form} noValidate>
             <TextField

@@ -2,8 +2,7 @@
 
 ##TODO LIST
 [✅] setup router
-[] setup prefetch and dispatch on server side
-[] connect router to redux
+[✅] setup prefetch and dispatch on server side
 [] complete wip setup saga
 [] setup sass
 [] refactor webpack

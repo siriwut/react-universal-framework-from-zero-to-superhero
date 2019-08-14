@@ -1,15 +1,10 @@
 import { hot, setConfig } from 'react-hot-loader'
 import React, { useEffect, Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
-import routes from './routes'
+import { connect } from 'react-redux'
 
 class App extends Component {
-  componentDidUpdate(curr, prev) {
-    console.log('hello')
-    console.log(prev)
-    console.log(curr)
-  }
-
   render() {
     const { route } = this.props
 

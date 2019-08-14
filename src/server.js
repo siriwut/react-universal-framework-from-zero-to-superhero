@@ -20,18 +20,20 @@ import {
 } from '@material-ui/styles'
 
 import { Provider } from 'react-redux'
-import routes from './routes'
 
 import theme from './theme'
 import template from './template.handlebars'
 
-import App from './App'
+import getRoutes from './getRoutes'
+import loadPrefetch from './helpers/loadPrefetch'
 
 import configureStore from './configureStore'
 import reducer from './reducer'
 import rootSaga from './saga'
 
 import config from '../webpack.client.dev'
+
+import App from './App'
 
 const server = express()
 
@@ -58,10 +60,8 @@ function handleRenderHtml(req, res, next) {
     reducer,
   )
 
-  const matchedRoutes = matchRoutes(
-    routes({ store }),
-    req.url,
-  )
+  const routes = getRoutes({ store })
+  const url = req.url
 
   const materialSheets = new ServerStyleSheets()
   const context = {}
@@ -71,10 +71,10 @@ function handleRenderHtml(req, res, next) {
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <StaticRouter
-              location={req.url}
+              location={url}
               context={context}
               history={createMemoryHistory()}>
-              {renderRoutes(routes())}
+              {renderRoutes()}
             </StaticRouter>
           </ThemeProvider>
         </Provider>,
@@ -89,8 +89,10 @@ function handleRenderHtml(req, res, next) {
     }
   }
 
-  runSaga(rootSaga)
-    .toPromise()
+  Promise.all([
+    runSaga(rootSaga).toPromise(),
+    loadPrefetch(routes, url),
+  ])
     .then(() => {
       const { html, css } = renderHtml()
 
@@ -108,22 +110,7 @@ function handleRenderHtml(req, res, next) {
     })
     .catch((e) => res.status(500).send(e.message))
 
-  const promises = matchedRoutes
-    .map(({ route, match }) => {
-      if (typeof route.prefetch !== 'function') {
-        return null
-      }
-
-      const promise = route.prefetch({ match })
-
-      if (!(promise instanceof Promise)) {
-        return null
-      }
-
-      return promise
-    })
-    .filter((route) => !!route)
-
+  // renderHtml()
   closeSaga()
 }
 

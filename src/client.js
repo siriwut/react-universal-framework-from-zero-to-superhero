@@ -14,9 +14,10 @@ import {
   renderRoutes,
 } from 'react-router-config'
 
+import NavPrefetchLoader from './NavPrefetchLoader'
 import App from './App'
 
-import routes from './routes'
+import getRoutes from './getRoutes'
 import theme from './theme'
 
 import configureStore from './configureStore'
@@ -25,7 +26,7 @@ import rootSaga from './saga'
 
 const { store, runSaga } = configureStore(
   reducer,
-  window.__INITIAL_STATE__ || {},
+  window.__INITIAL_STATE__,
 )
 
 runSaga(rootSaga)
@@ -40,9 +41,13 @@ function Main() {
     }
   }, [])
 
+  const routes = getRoutes({ store })
+
   return (
     <BrowserRouter>
-      {renderRoutes(routes({ store }))}
+      <NavPrefetchLoader routes={routes}>
+        {renderRoutes(routes)}
+      </NavPrefetchLoader>
     </BrowserRouter>
   )
 }
