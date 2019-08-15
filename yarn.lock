@@ -801,6 +801,14 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@clarketm/saga-monitor@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@clarketm/saga-monitor/-/saga-monitor-2.0.1.tgz#ccc20ec5c20420bbf8082ca1f54036d7ba990545"
+  integrity sha512-JlU2eRMdt/JLy37V5Q5KWASt+98vyapeLxiPJ+iT3NqCF+cdPVZpncrUxfBsY9o5U29aQe0+tvvS0Ysj+jrZ+A==
+  dependencies:
+    "@redux-saga/core" "^1.0.1"
+    "@redux-saga/is" "^1.0.1"
+
 "@emotion/hash@^0.7.1":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.7.2.tgz#53211e564604beb9befa7a4400ebf8147473eeef"
@@ -895,7 +903,7 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
-"@redux-saga/core@^1.0.3":
+"@redux-saga/core@^1.0.1", "@redux-saga/core@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@redux-saga/core/-/core-1.0.3.tgz#c29ec7ae3d7dfcbcb8dc93177f2b3edc798c5d85"
   integrity sha512-zf8h5N0oTzaNeSMxOWH9GJMB9IRSM8JubDsrZVsvVltXjzFFSR8DNt7tbPoRJUK0hFfQB1it+bL+dEMWpD7wXA==
@@ -921,7 +929,7 @@
   dependencies:
     "@redux-saga/symbols" "^1.0.1"
 
-"@redux-saga/is@^1.0.2":
+"@redux-saga/is@^1.0.1", "@redux-saga/is@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@redux-saga/is/-/is-1.0.2.tgz#7f4be014c97061898d7efb11d6c9de31e943ed38"
   integrity sha512-WnaUOwYvPK2waWjzebT4uhL8zY76XNkzzpJ2EQJe8bN1tByvAjvT7MuJZTSshOhdHL5PsRO0MsH224XIXBJidQ==

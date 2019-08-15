@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home(props) {
   const classes = useStyles()
-
+  console.log('--HOME--')
   return (
     <Grid container component="main">
       <CssBaseline />

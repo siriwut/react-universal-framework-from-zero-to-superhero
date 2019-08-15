@@ -74,7 +74,7 @@ function handleRenderHtml(req, res, next) {
               location={url}
               context={context}
               history={createMemoryHistory()}>
-              {renderRoutes()}
+              {renderRoutes(routes)}
             </StaticRouter>
           </ThemeProvider>
         </Provider>,
@@ -95,7 +95,6 @@ function handleRenderHtml(req, res, next) {
   ])
     .then(() => {
       const { html, css } = renderHtml()
-
       res.status(200).send(
         template({
           body: html,
@@ -110,7 +109,7 @@ function handleRenderHtml(req, res, next) {
     })
     .catch((e) => res.status(500).send(e.message))
 
-  // renderHtml()
+  renderHtml()
   closeSaga()
 }
 
