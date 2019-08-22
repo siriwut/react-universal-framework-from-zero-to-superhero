@@ -5,7 +5,7 @@ import App from './App'
 import Home from './views/Home'
 import About from './views/About'
 
-export default function getRoutes({ store } = {}) {
+export default function routes({ store } = {}) {
   return [
     {
       component: App,

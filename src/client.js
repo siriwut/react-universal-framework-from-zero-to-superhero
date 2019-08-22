@@ -17,7 +17,7 @@ import {
 import NavPrefetchLoader from './NavPrefetchLoader'
 import App from './App'
 
-import getRoutes from './getRoutes'
+import getRoutes from './routes'
 import theme from './theme'
 
 import configureStore from './configureStore'

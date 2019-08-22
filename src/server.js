@@ -24,7 +24,7 @@ import { Provider } from 'react-redux'
 import theme from './theme'
 import template from './template.handlebars'
 
-import getRoutes from './getRoutes'
+import getRoutes from './routes'
 import loadPrefetch from './helpers/loadPrefetch'
 
 import configureStore from './configureStore'

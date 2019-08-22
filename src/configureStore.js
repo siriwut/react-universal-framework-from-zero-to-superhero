@@ -17,7 +17,10 @@ export default function configureStore(
   initialState = {},
 ) {
   const sagaMiddleware = createSagaMiddleware({
-    sagaMonitor: createSagaMonitor(config),
+    sagaMonitor:
+      process.env.NODE_ENV === 'development'
+        ? createSagaMonitor(config)
+        : null,
   })
   const middleware = [sagaMiddleware]
   const enhancers =
