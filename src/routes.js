@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import App from './App'
 import Home from './views/Home'
 import About from './views/About'
+import TestHookState from './views/TestHookState'
 
 export default function routes({ store } = {}) {
   return [
@@ -27,7 +28,15 @@ export default function routes({ store } = {}) {
         },
         {
           path: '/test/:id',
+          exact: true,
           component: () => 'test',
+        },
+        {
+          path: '/test/hooks/state',
+          component: TestHookState,
+          // prefetch: async () => {
+          //   store.dispatch({ type: 'LOAD_HOME' })
+          // },
         },
         {
           component: () => 'Not Found',
