@@ -1,15 +1,28 @@
+const webpack = require('webpack')
 const path = require('path')
 const nodeExternals = require('webpack-node-externals')
+const StartServerPlugin = require('start-server-webpack-plugin')
+const {
+  CleanWebpackPlugin,
+} = require('clean-webpack-plugin')
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: 'development',
+  devtool: 'eval-source-map',
   entry: {
-    server: path.join(__dirname, 'src', 'index.js'),
+    server: [
+      'webpack/hot/poll?1000',
+      '@babel/polyfill',
+      // 'webpack-hot-middleware/server?reload=true',
+      path.join(__dirname, 'src', 'index.js'),
+    ],
   },
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name].js',
+    publicPath: '/build',
   },
+  context: __dirname,
   target: 'node',
   node: {
     // Need this when working with express, otherwise the build fails
@@ -18,7 +31,10 @@ module.exports = {
   },
   externals: [
     nodeExternals({
-      whitelist: [/@material-ui\/core\/*./],
+      whitelist: [
+        /@material-ui\/core\/*./,
+        'webpack/hot/poll?1000',
+      ],
     }),
   ], // Need this to avoid error when working with Express
   module: {
@@ -41,5 +57,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new StartServerPlugin({
+      name: 'server.js',
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 }

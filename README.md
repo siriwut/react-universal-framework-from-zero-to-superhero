@@ -1,1 +1,1 @@
-# react-ssr-app-without-framework
+# React Application from Zero to Superhero

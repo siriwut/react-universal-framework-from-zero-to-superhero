@@ -1,9 +1,12 @@
 const path = require('path')
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: 'production',
   entry: {
-    client: path.join(__dirname, 'src', 'client.js'),
+    client: [
+      '@babel/polyfill',
+      path.join(__dirname, 'src', 'client.js'),
+    ],
   },
   output: {
     path: path.join(__dirname, 'build', 'public'),
