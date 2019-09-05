@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function TestHookState(props) {
+  useEffect(() => {
+    console.log('Hoook')
+  })
+
   const [age, setAge] = useState(42)
   const [fruit, setFruit] = useState('banana')
   const [todos, setTodos] = useState([
