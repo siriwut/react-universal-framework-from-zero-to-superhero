@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom'
 import App from './App'
 import Home from './views/Home'
 import About from './views/About'
+import TestHooks from './views/TestHooks'
+import TestContext from './views/TestContext'
 
 export default function routes({ store } = {}) {
   return [
@@ -25,9 +27,24 @@ export default function routes({ store } = {}) {
             store.dispatch({ type: 'LOAD_HOME' })
           },
         },
+        // {
+        //   path: '/test/:id',
+        //   exact: true,
+        //   component: () => 'test',
+        // },
         {
-          path: '/test/:id',
-          component: () => 'test',
+          path: '/test/hooks',
+          component: TestHooks,
+          // prefetch: async () => {
+          //   store.dispatch({ type: 'LOAD_HOME' })
+          // },
+        },
+        {
+          path: '/test/context',
+          component: TestContext,
+          // prefetch: async () => {
+          //   store.dispatch({ type: 'LOAD_HOME' })
+          // },
         },
         {
           component: () => 'Not Found',
