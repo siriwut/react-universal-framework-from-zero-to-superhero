@@ -34,7 +34,7 @@
     "redux": "^4.0.4",
     "redux-saga": "^1.0.5",
     "reselect": "^4.0.0",
-    "serialize-javascript": "^1.7.0",
+    "serialize-javascript": "^2.1.1",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
